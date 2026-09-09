@@ -1,0 +1,5 @@
+{
+  "name": "block-self-bind-schedule",
+  "description": "Blocks self-bind session scheduling (send_later, or create_trigger without persistent_session_id or create_new_session_on_fire) to prevent silent token drain from hourly self check-ins on long-lived sessions.",
+  "version": "0.1.0"
+}
