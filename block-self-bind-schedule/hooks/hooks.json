@@ -1,12 +1,22 @@
 {
   "hooks": {
-    "PreToolUse": [
+    "SessionStart": [
       {
-        "matcher": "mcp__Claude_Code_Remote__send_later|mcp__Claude_Code_Remote__create_trigger",
         "hooks": [
           {
             "type": "command",
-            "command": "jq -c -f \"$CLAUDE_PLUGIN_ROOT/hooks/block-self-bind-schedule.jq\"",
+            "command": "\"$CLAUDE_PLUGIN_ROOT\"/hooks/remind.sh"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "^(mcp__.+__(send_later|create_trigger|update_trigger)|CronCreate|ScheduleWakeup)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PLUGIN_ROOT\"/hooks/guard.sh",
             "statusMessage": "Checking for self-bind scheduling"
           }
         ]
