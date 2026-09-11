@@ -10,7 +10,7 @@ Format: [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Versions follo
 - Deny `create_trigger` when `persistent_session_id` is the current session.
 - Deny `update_trigger` calls that re-arm a schedule.
 - Deny `CronCreate` and `ScheduleWakeup`.
-- `BLOCK_SELF_BIND_SCHEDULE` environment variable with modes `deny`, `ask`, and `off`.
+- `BLOCK_SELF_BIND_SCHEDULE` environment variable with modes `deny`, `ask`, and `off`. `ask` falls back to `deny` in permission modes that never prompt.
 - `SessionStart` reminder for the user and the model.
 - Tests, CI, LICENSE, CHANGELOG.
 

@@ -42,7 +42,7 @@ Set `BLOCK_SELF_BIND_SCHEDULE` in the environment that launches Claude Code, the
 | Value | Effect |
 | --- | --- |
 | unset or `deny` | Deny the calls above. Default. |
-| `ask` | Prompt you to approve each call. Sessions that cannot prompt deny. |
+| `ask` | Prompt you to approve each call. In `bypassPermissions` or `dontAsk` mode, or a session with no prompt host, this is a deny. |
 | `off` | Allow everything. |
 
 ## Develop

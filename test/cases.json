@@ -24,6 +24,10 @@
   {"name": "unrelated tool", "input": {"tool_name": "Bash", "tool_input": {"command": "ls"}}, "expect": "allow"},
   {"name": "unrelated mcp tool with similar suffix", "input": {"tool_name": "mcp__other__not_send_later", "tool_input": {}}, "expect": "allow"},
   {"name": "mode ask", "env": {"BLOCK_SELF_BIND_SCHEDULE": "ask"}, "input": {"tool_name": "mcp__Claude_Code_Remote__send_later", "tool_input": {}}, "expect": "ask"},
+  {"name": "mode ask, permission mode default", "env": {"BLOCK_SELF_BIND_SCHEDULE": "ask"}, "input": {"tool_name": "CronCreate", "tool_input": {}, "permission_mode": "default"}, "expect": "ask"},
+  {"name": "mode ask, permission mode auto", "env": {"BLOCK_SELF_BIND_SCHEDULE": "ask"}, "input": {"tool_name": "CronCreate", "tool_input": {}, "permission_mode": "auto"}, "expect": "ask"},
+  {"name": "mode ask, permission mode bypassPermissions", "env": {"BLOCK_SELF_BIND_SCHEDULE": "ask"}, "input": {"tool_name": "CronCreate", "tool_input": {}, "permission_mode": "bypassPermissions"}, "expect": "deny"},
+  {"name": "mode ask, permission mode dontAsk", "env": {"BLOCK_SELF_BIND_SCHEDULE": "ask"}, "input": {"tool_name": "mcp__Claude_Code_Remote__send_later", "tool_input": {}, "permission_mode": "dontAsk"}, "expect": "deny"},
   {"name": "mode off", "env": {"BLOCK_SELF_BIND_SCHEDULE": "off"}, "input": {"tool_name": "mcp__Claude_Code_Remote__send_later", "tool_input": {}}, "expect": "allow"},
   {"name": "mode unknown value falls back to deny", "env": {"BLOCK_SELF_BIND_SCHEDULE": "yes"}, "input": {"tool_name": "mcp__Claude_Code_Remote__send_later", "tool_input": {}}, "expect": "deny"}
 ]
