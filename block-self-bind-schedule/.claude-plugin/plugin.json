@@ -1,5 +1,11 @@
 {
   "name": "block-self-bind-schedule",
-  "description": "Blocks self-bind session scheduling (send_later, or create_trigger without persistent_session_id or create_new_session_on_fire) to prevent silent token drain from hourly self check-ins on long-lived sessions.",
-  "version": "0.1.0"
+  "description": "Denies tool calls that schedule wakeups of the current session. Each such wake resends the full conversation and can drain usage.",
+  "version": "0.2.0",
+  "author": {
+    "name": "tonytino"
+  },
+  "repository": "https://github.com/tonytino/claude-code-hooks",
+  "license": "MIT",
+  "keywords": ["hooks", "scheduling", "usage"]
 }

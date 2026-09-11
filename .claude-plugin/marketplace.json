@@ -7,8 +7,8 @@
     {
       "name": "block-self-bind-schedule",
       "source": "./block-self-bind-schedule",
-      "description": "Blocks agents from self-scheduling recurring wakeups on the same session (send_later, or create_trigger without persistent_session_id or create_new_session_on_fire). Those calls resend the full conversation history on every fire and can silently exhaust usage on a long-lived session.",
-      "version": "0.1.0"
+      "description": "Denies tool calls that schedule wakeups of the current session. Each such wake resends the full conversation and can drain usage.",
+      "version": "0.2.0"
     }
   ]
 }
