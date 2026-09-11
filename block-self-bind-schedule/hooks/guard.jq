@@ -3,6 +3,10 @@
 
 def mode: (env.BLOCK_SELF_BIND_SCHEDULE // "deny") | if . == "ask" or . == "off" then . else "deny" end;
 
+# "ask" needs a prompt. Permission modes that never prompt would swallow it, so deny there and say why.
+def cannot_prompt: .permission_mode == "bypassPermissions" or .permission_mode == "dontAsk";
+def effective_mode: if mode == "ask" and cannot_prompt then "deny" else mode end;
+
 # Session ids differ in prefix between surfaces ("session_01X" vs "cse_01X"). Compare the part after the prefix.
 def session_key: if type == "string" then sub("^[a-z]+_"; "") else null end;
 def own_session: env.CLAUDE_CODE_REMOTE_SESSION_ID | session_key;
@@ -37,15 +41,16 @@ def blocked:
   or tool == "CronCreate"
   or (tool == "ScheduleWakeup" and input.stop != true);
 
-def decision($mode):
+def decision($kind):
   { hookSpecificOutput: {
       hookEventName: "PreToolUse",
-      permissionDecision: $mode,
+      permissionDecision: $kind,
       permissionDecisionReason: (
         "block-self-bind-schedule: " + reason + ". Each wake resends the full conversation and can drain usage. "
         + "Use a reactive subscription, or create_trigger with create_new_session_on_fire:true or a persistent_session_id for another session. "
         + "Only a human can lift this: set BLOCK_SELF_BIND_SCHEDULE=ask or off before launching Claude Code."
+        + (if mode == "ask" and $kind == "deny" then " Mode ask cannot prompt in permission mode " + .permission_mode + ", so this is a deny." else "" end)
       )
   } };
 
-if mode == "off" or (blocked | not) then {} else decision(mode) end
+if mode == "off" or (blocked | not) then {} else decision(effective_mode) end
